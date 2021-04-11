@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize%}
+
+{% block title %} Portfolio {% endblock %}
+
+{% block content %}
+ <!-- PORTFOLIO -->
+
+
+
+<div class="inner">
+    <div class="container wrapper">
+        <div class="row">
+        {% if projects %}
+            {% for project in projects %}
+                <div class="col-lg-4 mb-3">
+                <div class="card shadow">
+                    <div class="img-container inner">
+                        <img src="{{ project.photo.url }}"  alt="" class="card-img-top" width="460" height="345">
+                    </div>
+                        <div class="card-body">
+                            <div class="text-center">
+                                <h5 class="card-title text-info">{{ project.name|title }}</h5>
+                                {{ project.description }} </p>
+                            </div>
+                            <hr>
+                            <br>                
+                               
+                                <div class="row py-2 text-secondary text-center">
+                                    <div class="col-12">
+                                    <a href="{{project.github }}" class="btn btn-dark btn-block">Github</a>                                    </div>
+                                </div>
+                        
+                        </div>
+                </div>
+            </div>
+            
+        
+            {% endfor %}
+        {% else %}
+        <div class="col-md-2">
+            <p>Whoops no projects </p>
+        </div>
+        {% endif %}
+           
+        </div>
+    </div>
+</div>
+
+
+
+
+{% endblock %}

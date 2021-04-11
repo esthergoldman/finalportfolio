@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize%}
+
+{% block title %} home {% endblock %}
+
+{% block content %}
+<!--Main-->
+
+<div class="scroll">
+    <div class="container-fluid text-white  frame " id="homes">
+        <div class="container">
+        <h1>Hello! I'm Esther</h1>
+        <p>Full Stack Developer</p>
+        </div>
+    </div>
+<!--About-->
+    <div class="container frame"id="About">
+       <div class="container about">
+    <div class="grid">
+        <div class="left">
+            <img src="{% static 'img/esther.jpg' %}" class="imgn" alt="img" width="400" height="400">
+        </div>
+        <div class="right">
+            <h1>Esther Goldman</h1><br>
+            <h5>Born in Venezuela, Living in Israel. I'm a Full Stack Developer with previous experience in Design and Sales. I enjoy learning new things and applying new skills to everything I do.</h5>
+        </div>
+    </div>
+</div>
+    </div>
+
+<!-- PORTFOLIO -->
+
+
+<div class="inner">
+    <div class="container wrapper">
+        <div class="row">
+        {% if projects %}
+            {% for project in projects %}
+                <div class="col-lg-4 mb-3">
+                <div class="card shadow">
+                    <div class="img-container inner">
+                        <img src="{{ project.photo.url }}"  alt="" class="card-img-top" width="460" height="345">
+                    </div>
+                        <div class="card-body">
+                            <div class="text-center">
+                                <h5 class="card-title text-info">{{ project.name|title }}</h5>
+                                {{ project.description }} </p>
+                            </div>
+                            <hr>
+                            <br>                
+                               
+                                <div class="row py-2 text-secondary text-center">
+                                    <div class="col-12">
+                                    <a href="{{project.github }}" class="btn btn-dark btn-block">Github</a>                                    </div>
+                                </div>
+                        
+                        </div>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+        <div class="col-md-2">
+            <p>Whoops no projects </p>
+        </div>
+        {% endif %}
+           
+        </div>
+    </div>
+</div>
+
+
+<!--contact-->
+    <div class="container" id="Contact">    
+        {% if first_name %}
+        <section>
+        <div class="contact-section">
+        <center>
+            <h1>Thank you!<br>{{ first_name|title }}</h1>
+            <p>We'll be in touch.<br>Shortly!</p>
+        </center>
+        </div>
+        </section>
+        {% else %}
+        <section>
+
+        <div class="container contact-section">
+            <h1>Get in touch</h1>
+            <br>
+        <form action="{% url 'contact' %}" id= "myForm" class="contact-form" method="POST" >
+            {% csrf_token %}
+            <input name="first_name" type="text" class="contact-form-text"  placeholder="First Name">
+            <input name="last_name" type="text" class="contact-form-text"  placeholder="Last name">
+            <input name="email"  type="email" class="contact-form-text"   placeholder="Email">
+            <textarea  name="message" class="contact-form-text" placeholder="Message"></textarea>
+            <button type="submit" class="contact-form-btn">Send</button>
+
+        </form>
+        </div>
+        </section>
+        {% endif %}
+            </div>
+                
+        </div>
+{% endblock %}
